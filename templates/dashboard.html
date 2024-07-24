@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        @font-face {
+            font-family: 'FontBold';
+            src: url("{{ url_for('static', filename='fonts/fontBold.otf') }}") format('opentype');
+        }
+        body {
+            background-image: url("{{ url_for('static', filename='images/background.png') }}");
+            background-size: cover;
+            color: white;
+            font-family: 'FontBold', Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+        h1 {
+            text-align: center;
+            font-family: 'FontBold', Arial, sans-serif;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 30px;
+        }
+        h2 {
+            text-align: center;
+            font-family: 'FontBold', Arial, sans-serif;
+            color: white;
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 50px;
+        }
+        th, td {
+            border: 1px solid grey;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: white;
+            color: black;
+        }
+        td {
+            background-color: black;
+            color: white;
+        }
+        p {
+            color: white;
+            font-family: 'FontBold', Arial, sans-serif;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 16px;
+        }
+        a {
+            color: white;
+        }
+        .profile-picture {
+            display: block;
+            margin: 0 auto 20px;
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+        .iframe-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        iframe {
+            border: 0;
+            width: 1140px;
+            height: 541.25px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bem-vindo, {{ influenciador }}!</h1>
+
+    {% if picture %}
+    <img src="{{ picture }}" alt="Foto do Influenciador" class="profile-picture">
+    {% endif %}
+
+    <h2>Resumo de Pagamentos:</h2>
+    <table>
+        <tr>
+            <th>Total A Receber</th>
+            <th>Total Recebido</th>
+        </tr>
+        <tr>
+            <td>{{ total_a_receber | currency_format }}</td>
+            <td>{{ total_recebido | currency_format }}</td>
+        </tr>
+    </table>
+
+    <h2>Seus Jobs Recentes:</h2>
+    <table>
+        <tr>
+            <th>Data</th>
+            <th>Marca</th>
+            <th>Campanha</th>
+            <th>Valor Influenciador</th>
+            <th>Status Pgt</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5">Nenhum dado encontrado.</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Reports BI:</h2>
+    <div class="iframe-container">
+        <iframe title="Projeto_Comercial_Pbi_V2" src="https://app.powerbi.com/view?r=eyJrIjoiYjk4MjhhMjAtZjExZC00NzQ1LTlmNGMtM2YzZTM2NzJiOTczIiwidCI6IjNlZmZmOTEwLTdkZDYtNDViMS1hYjNjLTZmNzM1MWU4MzQ2YSJ9&pageName=4aec8f6bb5c20d435680" allowFullScreen="true"></iframe>
+    </div>
+
+    <h2>Qualquer dúvida, contate-nos, estamos aqui para ajudar!</h2>
+    <p>Financeiro: (12) 98107-2285 Carolina Godo</p>
+    <p>Comercial: (21) 99236-2101 Lucas Continentino</p>
+    <p>Email: <a href="mailto:administrativo@agenciacurta.com">administrativo@agenciacurta.com</a></p>
+</body>
+</html>
